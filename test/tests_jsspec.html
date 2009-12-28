@@ -16,13 +16,18 @@ var ea;
 
 var foo = 0;
 var too = 0;
-function fnSetFoo() {
+function fnSetFooTo42() {
   foo = 42;
 }
 
-function fnSetToo() {
+function fnSetFoo(n) {
+  foo = n;
+}
+
+function fnSetTooTo43() {
   too = 43;
 }
+
 
 
 // <![CDATA[
@@ -52,7 +57,7 @@ describe('EventAggregator', {
   ,'"publish" to a subscribed event': function() {
     value_of(foo).should_be(0);
 
-    ea.subscribe(EVENT_KEYS.FOO, 'functionID', fnSetFoo);
+    ea.subscribe(EVENT_KEYS.FOO, 'functionID', fnSetFooTo42);
     ea.publish(EVENT_KEYS.FOO);
 
     value_of(foo).should_be(42);
@@ -62,19 +67,26 @@ describe('EventAggregator', {
     value_of(foo).should_be(0);
     value_of(too).should_be(0);
 
-    ea.subscribe(EVENT_KEYS.FOO, 'functionID_foo', fnSetFoo);
-    ea.subscribe(EVENT_KEYS.FOO, 'functionID_too', fnSetToo);
+    ea.subscribe(EVENT_KEYS.FOO, 'functionID_foo', fnSetFooTo42);
+    ea.subscribe(EVENT_KEYS.FOO, 'functionID_too', fnSetTooTo43);
     ea.publish(EVENT_KEYS.FOO);
 
     value_of(foo).should_be(42);
     value_of(too).should_be(43);
   }
 
+  ,'"publish" pass arguments from client to subscribed function': function() {
+    value_of(foo).should_be(0);
+    ea.subscribe(EVENT_KEYS.FOO, 'fnid', fnSetFoo);
+    ea.publish(EVENT_KEYS.FOO, 23);
+    value_of(foo).should_be(23);
+  }
+
   ,'"unsubscribe"': function() {
     value_of(foo).should_be(0);
 
-    ea.subscribe(EVENT_KEYS.FOO, 'functionID', fnSetFoo);
-    ea.subscribe(EVENT_KEYS.FOO, 'functionID_too', fnSetToo);
+    ea.subscribe(EVENT_KEYS.FOO, 'functionID', fnSetFooTo42);
+    ea.subscribe(EVENT_KEYS.FOO, 'functionID_too', fnSetTooTo43);
     ea.publish(EVENT_KEYS.FOO);
     value_of(foo).should_be(42);
     value_of(too).should_be(43);
