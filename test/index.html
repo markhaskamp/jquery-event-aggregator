@@ -15,14 +15,14 @@ function addToFoo() {
   $('#foo')[0].innerHTML = oldHTML + '<br />eddie would go';
 }
 
-function addToToo() {
+function addToToo(s) {
   var oldHTML = $('#too')[0].innerHTML;
-  $('#too')[0].innerHTML = oldHTML + '<br />kilroy was here';
+  $('#too')[0].innerHTML = oldHTML + '<br />' + s;
 }
 
 function addToBoth() {
   addToFoo();
-  addToToo();
+  addToToo('more to too');
 }
 
 $(document).ready(function() {
@@ -36,7 +36,7 @@ $(document).ready(function() {
   });
   
   $('#clickToo').click(function(evt) {
-    ea.publish(EVENT_KEYS.TOO);
+    ea.publish(EVENT_KEYS.TOO, 'kilroy was here');
   });
   
   $('#clickBoth').click(function(evt) {

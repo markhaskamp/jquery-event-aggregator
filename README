@@ -1,13 +1,11 @@
-v 0.7
-
 Simple event aggregator written with some jQuery hooks.
 
 index.html has sample usage code
 
+v 0.8
+ passing arguments from client publisher to aggregator through to subscriber
 
 Missing:
- passing arguments from client to aggregator through to subscriber
  safety checks for just about everything
- not tested: using functions inside function objects
-
+ not tested: subscriber functions that are members of function objects
 
