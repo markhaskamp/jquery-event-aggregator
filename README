@@ -1,3 +1,5 @@
+v 0.7
+
 Simple event aggregator written with some jQuery hooks.
 
 index.html has sample usage code
@@ -6,5 +8,6 @@ index.html has sample usage code
 Missing:
  passing arguments from client to aggregator through to subscriber
  safety checks for just about everything
+ not tested: using functions inside function objects
 
 
